@@ -1,0 +1,60 @@
+version: '3.9'
+
+secrets:
+  secret1:
+    external: true
+  secret2:
+    external: true
+  secret3:
+    external: true
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      #- /static/db/data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=dp
+
+  flask:
+    image: authchain:latest
+    volumes:
+      - ./Flask:/usr/src/app
+      - ./resource:/usr/src/app/static/certs
+    secrets:
+      - secret1
+      - secret2
+      - secret3
+    restart: always
+    environment:
+      POSTGRES_URI: postgresql://postgres:postgres@postgres:5432/dp
+      FLASK_APP: app.py
+      SERIAL_NUMBER: ${SERIAL_NUMBER}
+      MODEL_NAME: ${MODEL}
+      MAC_ADDRESS: ${MAC_ADDRESS}
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      PORT: ${PORT}
+      DEVICE_NAME: ${DEVICE_NAME}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - target: ${PORT}
+        published: ${PORT}
+        mode: host
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./resource:/etc/nginx/resource
+    depends_on:
+      - flask

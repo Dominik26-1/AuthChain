@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="section-header">
+        Network
+    </div>
+
+    <div class="flex-container center">
+
+        {% for node_url, node_hash in node.get_network_nodes() %}
+            <div class="card clickable-card" onclick="location.href='/profile/{{ node_hash }}';">
+                <div class="card-body">
+                    <h5 class="card-title">{{ node.hash }}</h5>
+                    <img src="{{ url_for('static', filename='img/pc.png') }}" class="card-img-center" alt="...">
+                    <p class="card-text">{{ node_url }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="container menu">
+        <div class="button">
+            <a href="/payment/">New payment</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/node_profile.css') }}">
+{% endblock %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="profile-card-4 z-depth-3">
+                <div class="card">
+                    <div class="card-body text-center bg-primary rounded-top">
+                        <div class="user-box">
+                            <img src="{{ url_for('static', filename='img/pc.png') }}"
+                                 class="card-img-center" alt="PC name">
+                        </div>
+                        <h5 class="mb-1 text-white">{{ node_name }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group shadow-none">
+                            <li class="list-group-item">
+                                <div class="list-icon">
+                                    <i class="fa fa-phone-square"></i>
+                                </div>
+                                <div class="list-details">
+                                    <span>www.pc2.authchain.site</span>
+                                    <small>Domain</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="list-icon">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="list-details">
+                                    <span>{{ node_url }}</span>
+                                    <small>Node Url</small>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="list-icon">
+                                    <i class="fa fa-globe"></i>
+                                </div>
+                                <div class="list-details">
+                                    <span>{{ node_cert.get("not_valid_before") }}</span>
+                                    <small>Certificate issued</small>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="row text-center mt-4">
+                            <div class="col p-2">
+                                <h4 class="mb-1 line-height-5">{{ auth_trx|length }}</h4>
+                                <small class="mb-0 font-weight-bold">Authentications</small>
+                            </div>
+                            <div class="col p-2">
+                                <h4 class="mb-1 line-height-5">{{ pay_trx|length }}</h4>
+                                <small class="mb-0 font-weight-bold">Payments</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="card z-depth-3">
+                <div class="card-body">
+                    <ul class="nav nav-pills nav-pills-primary nav-justified">
+                        <li class="nav-item">
+                            <a href="#profile" data-target="#profile" data-toggle="pill"
+                               class="nav-link active show"><i class="icon-user"></i> <span
+                                    class="hidden-xs">Profile</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#messages" data-target="#messages" data-toggle="pill"
+                               class="nav-link"><i class="icon-envelope-open"></i> <span
+                                    class="hidden-xs">Messages</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#payments" data-target="#payments" data-toggle="pill"
+                               class="nav-link"><i class="icon-envelope-open"></i> <span
+                                    class="hidden-xs">Payments</span></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3">
+                        <div class="tab-pane active show" id="profile">
+                            <h5 class="mb-3">User Profile</h5>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h6>About</h6>
+                                    <p>
+                                        {{ node_name }}
+                                    </p>
+                                    <h6>Certificate</h6>
+
+                                    <p><strong>Certificate Number:</strong> {{ node_cert.get("certificate_number") }}</p>
+                                    <p><strong>Issued:</strong> {{ node_cert.get("not_valid_before") }}</p>
+                                    <p><strong>Valid till:</strong> {{ node_cert.get("not_valid_after") }}</p>
+                                    <p><strong>Issued by:</strong> {{ node_cert.get("issuer") }}</p>
+                                </div>
+                            </div>
+                            <!--/row-->
+                        </div>
+                        <div class="tab-pane" id="messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                {% for transaction in auth_trx %}
+                                    <tr>
+                                        <td>
+                                            <span class="float-right font-weight-bold">{{ transaction.creation_timestamp }}</span>
+                                            Node {{ node_name }}
+                                            has joined network with action {{ transaction.action_type }}.
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="payments">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                {% for transaction in pay_trx %}
+                                    <tr>
+                                        <td>
+                                            <span class="float-right font-weight-bold">{{ transaction.creation_timestamp }}</span>
+                                            Node {{ node_name }}
+                                            creates payment with price {{ transaction.price }}.
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

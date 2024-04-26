@@ -1,0 +1,169 @@
+a, a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.card {
+    flex-direction: row;
+}
+
+.right {
+    justify-content: flex-end;
+}
+
+.center {
+    justify-content: space-around;
+}
+
+.container {
+    margin-top: 1em;
+}
+.submit-but {
+   margin-top: 1em;
+}
+
+.flex-container {
+    gap: 1em;
+    display: flex;
+    flex-direction: row; /* Tímto řádkem zajistíte, že karty budou vedle sebe */
+    align-items: center; /* To zarovná položky vertikálně */
+
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h2 {
+    color: #333;
+}
+
+.header-text {
+    text-align: center;
+    justify-content: center;
+    font-size: xxx-large;
+    color: #008cff;
+    font-family: system-ui, sans-serif;
+}
+
+.access {
+    text-align: right;
+    font-family: system-ui, sans-serif;
+    border-radius: 5px;
+    padding: 0.3em;
+}
+
+.clickable {
+    color: #008cff;
+    font-weight: bold;
+    display: block;
+}
+
+.clickable:hover {
+    transition: 220ms all ease-in-out;
+    display: block;
+    background-color: #008cff;
+    color: white;
+}
+
+.text {
+    font-family: system-ui, sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #008cff;
+
+}
+
+.button {
+    cursor: pointer;
+    font-family: system-ui, sans-serif;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #008cff;
+    border-style: solid;
+    border-color: #008cff;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+    padding: 0.25em 0.75em;
+    min-width: 10ch;
+    min-height: 44px;
+    text-align: center;
+    line-height: 1.1;
+    transition: 220ms all ease-in-out;
+    font-weight: bold;
+}
+
+.button:hover {
+    border-style: solid;
+    background-color: #008cff;
+    color: #ffffff;
+    font-weight: bold;
+
+}
+
+.button:focus {
+    border-style: solid;
+    background-color: #008cff;
+    color: white;
+
+}
+
+.button:active {
+    border-style: solid;
+    background-color: #008cff;
+    color: white;
+}
+
+.green-background {
+    background-color: #008cff;
+}
+
+.card {
+    margin: 0 auto;
+}
+
+.card-img-center {
+    display: inline-block;
+    width: 20%;
+}
+
+.clickable-card {
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.section-header {
+    text-align: center;
+    font-size: x-large;
+}
+
+.nav-header {
+    text-align: center;
+    font-size: medium;
+    font-family: system-ui, sans-serif;
+
+}
+
+hr {
+    width: 50%;
+    margin: auto;
+    background: #008cff;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 1em;
+}
+
+

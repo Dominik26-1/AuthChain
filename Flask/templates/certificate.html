@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="section-header">
+        Certificate
+    </div>
+    <p>{{ certificate.common_name }}</p>
+
+    <p>{{ certificate.mac_address }}</p>
+    <p>{{ certificate.serial_number }}</p>
+    <p>{{ certificate.model }}</p>
+    <p>{{ certificate.certificate_number }}</p>
+    <p>{{ certificate.issuer }}</p>
+    <p>{{ certificate.not_valid_after }}</p>
+{% endblock %}

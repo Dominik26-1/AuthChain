@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/error_handler.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/timeout_handler.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/node_profile.css') }}">
+    {% block stylesheet %}{% endblock %}
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body>
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                            aria-hidden="true" onclick="closeMessage()"></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<div class="flex-container right">
+    {% if session.pc_id %}
+        <div class="access clickable"><a href="/logout">Log Out</a></div>
+    {% else %}
+        <div class="access clickable"><a href="/login">Log In</a></div>
+        <div class="access clickable"><a href="/register">Sign up</a></div>
+    {% endif %}
+</div>
+<h2 class="header-text">AuthChain</h2>
+<hr/>
+
+<div class="nav-header">
+
+    <ul class="nav nav-tabs nav-tabs-primary nav-justified">
+        <li class="nav-item">
+            <a href="/" class="nav-link"><i class="icon-user"></i> <span class="hidden-xs">Home</span></a>
+        </li>
+        {% if session.pc_id %}
+            <li class="nav-item">
+                <a href="/auth-transaction/" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Authentications</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="/pay-transaction/" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Payments</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="/payment/" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">New payment</span></a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="ml-5 mr-5 container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

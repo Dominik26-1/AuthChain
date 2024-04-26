@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="section-header">
+        Network
+    </div>
+    <div class="flex-container center">
+        <div class="card clickable-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ node.name }}</h5>
+                <img src="{{ url_for('static', filename='img/pc.png') }}" class="card-img-center" alt="PC name">
+                <p class="card-text">MAC: {{ node.info.mac_address }}</p>
+                <p class="card-text">{{ node.info.serial_number }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container menu">
+        <div class="button">
+            <a href="/register">Sign Up</a>
+        </div>
+
+        <div class="button">
+            <a href="/login">Log In</a>
+        </div>
+    </div>
+{% endblock %}
